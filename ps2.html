@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0044)https://au.gmented.com/app/marker/marker.php -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Marker generator</title>
+<script type="text/javascript">
+function MM_validateForm() { //v4.0
+  if (document.getElementById){
+    var i,p,q,nm,test,num,min,max,errors='',args=MM_validateForm.arguments;
+    for (i=0; i<(args.length-2); i+=3) { test=args[i+2]; val=document.getElementById(args[i]);
+      if (val) { nm=val.name; if ((val=val.value)!="") {
+        if (test.indexOf('isEmail')!=-1) { p=val.indexOf('@');
+          if (p<1 || p==(val.length-1)) errors+='- '+nm+' must contain an e-mail address.\n';
+        } else if (test!='R') { num = parseFloat(val);
+          if (isNaN(val)) errors+='- '+nm+' must contain a number.\n';
+          if (test.indexOf('inRange') != -1) { p=test.indexOf(':');
+            min=test.substring(8,p); max=test.substring(p+1);
+            if (num<min || max<num) errors+='- '+nm+' must contain a number between '+min+' and '+max+'.\n';
+      } } } else if (test.charAt(0) == 'R') errors += '- '+nm+' is required.\n'; }
+    } if (errors) alert('The following error(s) occurred:\n'+errors);
+    document.MM_returnValue = (errors == '');
+} }
+</script>
+<style type="text/css">
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: small;
+}
+.note {
+	color: #F00;
+}
+</style>
+</head>
+<body>
+<h1>Marker generator</h1>
+<h2>for ARToolKit v4.5.3 and later</h2>
+<p>Copright © 2011-2017 Eden Networks Ltd. All rights reserved.</p>
+<form action="https://au.gmented.com/app/marker/marker.php" method="post" name="form1" target="_self" id="marker_specs">
+  <table border="1	" cellspacing="8" cellpadding="2">
+    <tbody><tr>
+      <td>Marker type<br>
+        <label>
+          <input type="radio" name="marker_type" value="template" id="marker_type_0" onchange="document.forms[&#39;marker_specs&#39;].submit();">
+          Pictorial (template)</label>
+        <br>
+        <label>
+          <input type="radio" name="marker_type" value="matrix" id="marker_type_1" checked="" onchange="document.forms[&#39;marker_specs&#39;].submit();">
+          2D barcode (matrix)</label>
+        <br>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="marker_size">Marker size (millimetres):</label>
+        <input name="marker_size" type="text" id="marker_size" onchange="document.forms[&#39;marker_specs&#39;].submit();" onblur="MM_validateForm(&#39;marker_size&#39;,&#39;&#39;,&#39;NinRange8:300&#39;);return document.MM_returnValue" value="80">
+        <br>
+        <label for="marker_image_resolution">Marker image resolution:</label>
+        <select name="marker_image_resolution" id="marker_image_resolution" onchange="document.forms[&#39;marker_specs&#39;].submit();">
+          <option value="72" selected="">Screen (72 dpi)</option>
+          <option value="300">Print (300 dpi)</option>
+        </select>
+        <br>
+Marker pixel size: 226 <br>
+<label>
+  <input type="checkbox" name="border_quiet_zone" value="true" id="border_quiet_zone" onchange="document.forms[&#39;marker_specs&#39;].submit();">
+  Add a quiet zone around marker (of same size as border)</label>
+<br>
+<label for="border_size">Border size (% of marker width)</label>
+<input name="border_size" type="text" id="border_size" onblur="MM_validateForm(&#39;border_size&#39;,&#39;&#39;,&#39;NinRange0:0.5&#39;);return document.MM_returnValue" onchange="document.forms[&#39;marker_specs&#39;].submit();" value="0.25">
+<br>
+<label>
+  <input type="radio" name="border_is_white" value="false" id="border_is_white_0" checked="" onchange="document.forms[&#39;marker_specs&#39;].submit();">
+  Markers have black borders</label>
+<br>
+<label>
+  <input type="radio" name="border_is_white" value="true" id="border_is_white_1" onchange="document.forms[&#39;marker_specs&#39;].submit();">
+  Markers have white borders</label>
+<br>
+<label for="barcode_dimensions">Barcode dimensions:</label>
+<select name="barcode_dimensions" id="barcode_dimensions" onchange="document.forms[&#39;marker_specs&#39;].submit();">
+  <option value="3">3 x 3</option>
+  <option value="4" selected="">4 x 4</option>
+  <option value="5">5 x 5</option>
+  <option value="6">6 x 6 (NOT RECOMMENDED)</option>
+</select>
+<br>
+<label for="ecc_type">Error checking and correction type:</label>
+<select name="ecc_type" id="ecc_type" onchange="document.forms[&#39;marker_specs&#39;].submit();">
+  <option value="none" selected="">none</option>
+  <option value="bch_13_9_3">BCH (13,9,3) code</option><option value="bch_13_5_5">BCH (13,5,5) code</option></select>
+<br>
+Maximum available number of barcodes: 8192      </td>
+    </tr>
+    <tr>
+      <td><label>
+        <input name="gen_single_vs_multiple" type="radio" id="gen_single_vs_multiple_0" value="single" checked="" onchange="document.forms[&#39;marker_specs&#39;].submit();">
+        Generate a single marker image</label>
+                <label for="gen_single_number2">with code: </label>
+        <input name="gen_single_number" type="text" id="gen_single_number2" value="55" onblur="MM_validateForm(&#39;gen_single_number&#39;,&#39;&#39;,&#39;NinRange0:8191&#39;);return document.MM_returnValue"> (in range 0 to 8191) 
+                <br>
+        <label>
+          <input name="gen_single_vs_multiple" type="radio" id="gen_single_vs_multiple_1" value="multiple" onchange="document.forms[&#39;marker_specs&#39;].submit();">
+          Generate a range of markers</label>
+              <br></td>
+    </tr>
+    <tr>
+      <td><div align="right">
+        <input type="submit" name="button_generate" id="button_generate" value="Generate">
+      </div></td>
+    </tr>
+    <tr>
+      <td>Right-click the image and choose "Save image as..."<br><br><img name="marker" width="226" height="226" border="1" alt="marker image" src="./ps2_files/0055.png">      </td>
+    </tr>
+    <tr>
+      <td id="note">
+        To use the marker in ARToolKit, the following code must be included in ARToolKit setup:<br>
+          <code>
+          arSetPatternDetectionMode(&lt;#ARHandle handle#&gt;, AR_MATRIX_CODE_DETECTION);
+                                          <br>arSetMatrixCodeType(&lt;#ARHandle handle#&gt;, AR_MATRIX_CODE_4x4);
+		            </code>
+        </td>
+      </tr>
+        </tbody></table>
+</form>
+
+<p>&nbsp;</p>
+
+</body></html>
